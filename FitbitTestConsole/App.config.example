@@ -11,22 +11,22 @@
     <userSettings>
         <FitbitTestConsole.Properties.Settings>
             <setting name="RedirectUrl" serializeAs="String">
-                <value>https://www.fitbit.com/user/7RFW6Q</value>
+                <value></value>
             </setting>
             <setting name="ClientID" serializeAs="String">
-                <value>22B5FB</value>
+                <value></value>
             </setting>
             <setting name="ClientSecret" serializeAs="String">
-                <value>30cef5fa7888fda6d8331b1b0e0d2f31</value>
+                <value></value>
             </setting>
             <setting name="Token" serializeAs="String">
-                <value>eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkI1RkIiLCJzdWIiOiI3UkZXNlEiLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJ3aHIgd251dCB3cHJvIHdzbGUgd3dlaSB3c29jIHdhY3Qgd3NldCB3bG9jIiwiZXhwIjoxNTY5ODI2MjM5LCJpYXQiOjE1Njk0Mjc3MzN9.z6XRydGWMBthsmC8DXj4D7ktlh9ntTgzo-yOKDHSOaM</value>
+                <value></value>
             </setting>
             <setting name="Expires" serializeAs="String">
-                <value>604800</value>
+                <value></value>
             </setting>
             <setting name="Scopes" serializeAs="String">
-                <value>heartrate weight profile nutrition activity sleep settings social location</value>
+                <value></value>
             </setting>
         </FitbitTestConsole.Properties.Settings>
     </userSettings>
