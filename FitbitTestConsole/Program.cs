@@ -12,7 +12,9 @@ namespace FitbitAPITestConsole
 {
     class Program
     {
-        private static string userDataUrl = "https://api.fitbit.com/1/user/-/profile.json";
+        private static string userDataPath = "/user/-/profile.json";
+        private static string devicesPath = "/1/user/-/devices.json";
+        private static string apiUrl = "https://api.fitbit.com";
         private static string clientID;
         private static string clientSecret;
         private static string redirectUrl;
@@ -55,23 +57,24 @@ namespace FitbitAPITestConsole
             {
                 token = settings.Token;
             }
-            GetUserData();
+
+            GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
+            GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, null);
             Console.ReadKey(true);
         }
 
-        private static async void GetUserData()
+        private static async void GetDataTest<T>(string url, Action<T> action)
         {
             HttpClient c = new HttpClient();
-           HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, userDataUrl);
+            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
             httpRequest.Headers.Add("Authorization", "Bearer " + token);
             using (HttpResponseMessage res = await c.SendAsync(httpRequest))
             {
                 string resText = await res.Content.ReadAsStringAsync();
-                FitbitUser user = JsonConvert.DeserializeObject<FitbitUserWrapper>(resText).User;
-                Console.WriteLine("Data recieved from Fitbit user "+user.FullName+" ("+user.DisplayName+")");
-                Console.WriteLine("Born: " + user.DateOfBirth.ToString("dd.MM.yyyy") + " (Age: " + user.Age + ")");
-                Console.WriteLine("Average Daily Steps: " + user.AverageDailySteps);
+                T returnObject = JsonConvert.DeserializeObject<T>(resText);
+                action?.Invoke(returnObject);
             }
+
         }
     }
 }

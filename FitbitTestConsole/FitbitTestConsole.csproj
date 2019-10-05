@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FitbitDevice.cs" />
     <Compile Include="FitbitUser.cs" />
     <Compile Include="FitbitUserWrapper.cs" />
     <Compile Include="Program.cs" />

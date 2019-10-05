@@ -8,8 +8,6 @@ namespace FitbitAPITestConsole
 {
     public class FitbitUserWrapper
     {
-        private FitbitUser user;
-
-        public FitbitUser User { get => user; set => user = value; }
+        public FitbitUser user { get; set; }
     }
 }
