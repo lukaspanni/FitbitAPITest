@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> b7f513de447322375b831bc7fd4451203eaf5c93
 
 namespace FitbitAPITestConsole
 {
     public class FitbitBadge
     {
+<<<<<<< HEAD
         public string badgeGradientEndColor { get; set; } //Hex Color String -> Convert to Color?
         public string badgeGradientStartColor { get; set; }
         public string badgeType { get; set; } // -> Enum values?
@@ -27,3 +36,8 @@ namespace FitbitAPITestConsole
         public string shortName { get; set; }
         public int timesAchieved { get; set; }
     }
+=======
+      //Add Properties
+    }
+}
+>>>>>>> b7f513de447322375b831bc7fd4451203eaf5c93
