@@ -45,7 +45,7 @@ namespace FitbitAPITestConsole
         public string strideLengthWalkingType { get; set; }
         public string swimUnit { get; set; }
         public string timezone { get; set; }
-        public object topBadges { get; set; }
+        public FitbitBadge[] topBadges { get; set; }
         public string waterUnit { get; set; }
         public string waterUnitName { get; set; }
         public double weight { get; set; }

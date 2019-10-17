@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FitbitBadge.cs" />
     <Compile Include="FitbitDevice.cs" />
+    <Compile Include="FitbitSleepWrapper.cs" />
     <Compile Include="FitbitUser.cs" />
     <Compile Include="FitbitUserWrapper.cs" />
     <Compile Include="Program.cs" />
@@ -57,6 +59,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SleepData.cs" />
+    <Compile Include="SleepLevel.cs" />
+    <Compile Include="SleepLevelData.cs" />
+    <Compile Include="SleepLevelSummary.cs" />
+    <Compile Include="SleepSummary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
