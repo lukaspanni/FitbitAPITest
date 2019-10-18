@@ -12,9 +12,12 @@ namespace FitbitAPITestConsole
 {
     class Program
     {
+        //Move to new class ApiEndpoints
         private static string userDataPath = "/user/-/profile.json";
         private static string devicesPath = "/1/user/-/devices.json";
         private static string apiUrl = "https://api.fitbit.com";
+        //End move
+        
         private static string clientID;
         private static string clientSecret;
         private static string redirectUrl;
