@@ -64,6 +64,7 @@
     <Compile Include="SleepLevelData.cs" />
     <Compile Include="SleepLevelSummary.cs" />
     <Compile Include="SleepSummary.cs" />
+    <Compile Include="HeartRateIntradayTimeSeries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
