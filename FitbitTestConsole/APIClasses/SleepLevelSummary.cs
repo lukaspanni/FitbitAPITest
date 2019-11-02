@@ -12,6 +12,20 @@
             public int count { get; set; }
             public int minutes { get; set; }
             public int thirtyDayAvgMinutes { get; set; }
+
+        }
+
+        public static SleepLevelSummary operator +(SleepLevelSummary a, SleepLevelSummary b)
+        {
+            a.deep.minutes += b.deep.minutes;
+            a.deep.count += b.deep.count;
+            a.light.minutes += b.light.minutes;
+            a.light.count += b.light.count;
+            a.rem.minutes += b.rem.minutes;
+            a.rem.count += b.rem.count;
+            a.wake.minutes += b.wake.minutes;
+            a.wake.count += b.wake.count;
+            return a;
         }
     }
 }

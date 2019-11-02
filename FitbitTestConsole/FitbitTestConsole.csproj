@@ -83,6 +83,8 @@
     <Compile Include="APIClasses\FitbitSleepWrapper.cs" />
     <Compile Include="APIClasses\FitbitUser.cs" />
     <Compile Include="APIClasses\FitbitUserWrapper.cs" />
+    <Compile Include="APIClasses\HeartActivities.cs" />
+    <Compile Include="APIClasses\HeartActivitiesIntraday.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

@@ -1,9 +1,13 @@
+using Newtonsoft.Json;
+
 namespace FitbitAPITestConsole
 {
     class HeartRateIntradayTimeSeries
     {
-         //api-var name is activities-heart!
-        public object activities_heart { get; set; }
-        public object activities_heart_intraday { get; set; }
+        [JsonProperty("activities-heart")]
+        public HeartActivities[] activities_heart { get; set; }
+        //large object!
+        [JsonProperty("activities-heart-intraday")]
+        public HeartActivitiesIntraday activities_heart_intraday { get; set; }
     }
 }

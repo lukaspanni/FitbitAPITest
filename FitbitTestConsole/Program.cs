@@ -16,6 +16,7 @@ namespace FitbitAPITestConsole
         private static readonly string userDataPath = "/user/-/profile.json";
         private static readonly string devicesPath = "/1/user/-/devices.json";
         private static readonly string sleepDataPath = "/1.2/user/-/sleep/date/";
+        private static readonly string heartRatePath = "/1/user/-/activities/heart/date/";
         private static readonly string apiUrl = "https://api.fitbit.com";
         //End move
         
@@ -62,12 +63,49 @@ namespace FitbitAPITestConsole
                 token = settings.Token;
             }
 
-            GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
-            GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, null);
-            DateTime date = DateTime.Now;
-            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + date.ToString("yyyy-MM-dd") + ".json", (sleep) => Console.WriteLine(sleep.sleep[0].levels.summary.deep.minutes));
+            //GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
+            //GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, (deviceList) => { Console.WriteLine(deviceList[0].lastSyncTime); });
+            //getSleepData();
+            //GetDataTest<HeartRateIntradayTimeSeries>(apiUrl + heartRatePath + "today/today/1min.json", (heartRateData) => Console.WriteLine(heartRateData.activities_heart[0].value.restingHeartRate) );
             
             Console.ReadKey(true);
+        }
+
+        //test
+        private static void getSleepData()
+        {
+            DateTime startDate = DateTime.Now.AddDays(-30);
+            DateTime endDate = DateTime.Now;
+
+            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + startDate.ToString("yyyy-MM-dd") + "/" + endDate.ToString("yyyy-MM-dd") + ".json", (sleep) =>
+            {
+                Array.Sort(sleep.sleep, Comparer<SleepData>.Create((x, y) => x.dateOfSleep.CompareTo(y.dateOfSleep)));
+                //Use SleepLevelSummary Type to store total summary
+                //Sleep Logs by Date Range returns individual summaries
+                SleepLevelSummary sum = new SleepLevelSummary();
+                sum.deep = new SleepLevelSummary.SleepPhaseData();
+                sum.wake = new SleepLevelSummary.SleepPhaseData();
+                sum.light = new SleepLevelSummary.SleepPhaseData();
+                sum.rem = new SleepLevelSummary.SleepPhaseData();
+                foreach (SleepData sd in sleep.sleep)
+                {
+                    Array.Sort(sd.levels.data, Comparer<SleepLevelData>.Create((x, y) => x.level.CompareTo(y.level)));
+                    foreach (SleepLevelData sld in sd.levels.data)
+                    {
+                        Console.WriteLine("{0,-15}{1,10}{2,10}s", sld.dateTime, sld.level, sld.seconds);
+                    }
+                    sum += sd.levels.summary;
+                    Console.WriteLine();
+                }
+                Console.WriteLine("Summary:");
+                Console.WriteLine("{0,-10}{1,5}{2,20}", "Phase", "Count", "Duration [min]");
+                Console.WriteLine(new string('=', 35));
+                Console.WriteLine("{0,-10}{1,5}{2,20:N0}", "Deep:", sum.deep.count, sum.deep.minutes);
+                Console.WriteLine("{0,-10}{1,5}{2,20:N0}", "Light:", sum.light.count, sum.light.minutes);
+                Console.WriteLine("{0,-10}{1,5}{2,20:N0}", "REM:", sum.rem.count, sum.rem.minutes); ;
+                Console.WriteLine("{0,-10}{1,5}{2,20:N0}", "Wake:", sum.wake.count, sum.wake.minutes);
+            });
+
         }
 
         private static async void GetDataTest<T>(string url, Action<T> action)
