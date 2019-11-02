@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FitbitTestConsole
+namespace FitbitAPITestConsole
 {
     class FitbitSleepWrapper
     {
         public SleepData[] sleep { get; set; }
 
-        public SleepSummary sumary { get; set; }
+        public SleepSummary summary { get; set; }
     }
 }

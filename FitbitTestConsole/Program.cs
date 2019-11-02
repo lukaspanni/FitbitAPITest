@@ -13,9 +13,10 @@ namespace FitbitAPITestConsole
     class Program
     {
         //Move to new class ApiEndpoints
-        private static string userDataPath = "/user/-/profile.json";
-        private static string devicesPath = "/1/user/-/devices.json";
-        private static string apiUrl = "https://api.fitbit.com";
+        private static readonly string userDataPath = "/user/-/profile.json";
+        private static readonly string devicesPath = "/1/user/-/devices.json";
+        private static readonly string sleepDataPath = "/1.2/user/-/sleep/date/";
+        private static readonly string apiUrl = "https://api.fitbit.com";
         //End move
         
         private static string clientID;
@@ -63,6 +64,9 @@ namespace FitbitAPITestConsole
 
             GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
             GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, null);
+            DateTime date = DateTime.Now;
+            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + date.ToString("yyyy-MM-dd") + ".json", (sleep) => Console.WriteLine(sleep.sleep[0].dateOfSleep));
+            
             Console.ReadKey(true);
         }
 

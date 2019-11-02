@@ -1,4 +1,4 @@
-﻿namespace FitbitTestConsole
+﻿namespace FitbitAPITestConsole
 {
     public class SleepSummary
     {

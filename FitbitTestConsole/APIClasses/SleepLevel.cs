@@ -1,4 +1,4 @@
-﻿namespace FitbitTestConsole
+﻿namespace FitbitAPITestConsole
 {
     public class SleepLevel
     {
@@ -8,6 +8,7 @@
 
         public SleepLevelData[] shortData { get; set; }
 
-        public SleepLevelSummary summary { get; set; }
+        //SleepLevelSummary
+        public object summary { get; set; }
     }
 }
