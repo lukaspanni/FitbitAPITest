@@ -65,7 +65,7 @@ namespace FitbitAPITestConsole
             GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
             GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, null);
             DateTime date = DateTime.Now;
-            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + date.ToString("yyyy-MM-dd") + ".json", (sleep) => Console.WriteLine(sleep.sleep[0].dateOfSleep));
+            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + date.ToString("yyyy-MM-dd") + ".json", (sleep) => Console.WriteLine(sleep.sleep[0].levels.summary.deep.minutes));
             
             Console.ReadKey(true);
         }
@@ -77,9 +77,13 @@ namespace FitbitAPITestConsole
             httpRequest.Headers.Add("Authorization", "Bearer " + token);
             using (HttpResponseMessage res = await c.SendAsync(httpRequest))
             {
-                string resText = await res.Content.ReadAsStringAsync();
-                T returnObject = JsonConvert.DeserializeObject<T>(resText);
-                action?.Invoke(returnObject);
+
+                if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string resText = await res.Content.ReadAsStringAsync();
+                    T returnObject = JsonConvert.DeserializeObject<T>(resText);
+                    action?.Invoke(returnObject); 
+                }
             }
 
         }

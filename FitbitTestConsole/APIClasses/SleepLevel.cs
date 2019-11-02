@@ -8,7 +8,6 @@
 
         public SleepLevelData[] shortData { get; set; }
 
-        //SleepLevelSummary
-        public object summary { get; set; }
+        public SleepLevelSummary summary { get; set; }
     }
 }

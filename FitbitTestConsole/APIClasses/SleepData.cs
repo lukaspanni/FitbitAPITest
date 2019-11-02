@@ -15,8 +15,7 @@ namespace FitbitAPITestConsole
         public DateTime endTime { get; set; }
         public int infoCode { get; set; }
         public bool isMainSleep { get; set; }
-        //SleepLevel
-        public object levels { get; set; }
+        public SleepLevel levels { get; set; }
         public long logId { get; set; }
         public int minutesAfterWakeup { get; set; }
         public int minutesAsleep { get; set; }
