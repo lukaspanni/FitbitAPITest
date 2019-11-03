@@ -57,10 +57,10 @@ namespace FitbitAPITestConsole
                 token = settings.Token;
             }
 
-            GetDataTest<FitbitUserWrapper>(APIEndpoints.UserDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
-            GetDataTest<List<FitbitDevice>>(APIEndpoints.DevicesPath, (deviceList) => { Console.WriteLine(deviceList[0].lastSyncTime); });
-            getSleepData();
-            GetDataTest<HeartRateIntradayTimeSeries>(APIEndpoints.HeartRatePath(DateTime.Now,DateTime.Now), (heartRateData) => Console.WriteLine(heartRateData.activities_heart[0].value.restingHeartRate) );
+            //GetDataTest<FitbitUserWrapper>(APIEndpoints.UserDataPath(), (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
+            //GetDataTest<List<FitbitDevice>>(APIEndpoints.DevicesPath(), (deviceList) => { Console.WriteLine(deviceList[0].lastSyncTime); });
+            //getSleepData();
+            GetDataTest<HeartRateIntradayTimeSeriesTime>(APIEndpoints.HeartRatePath(DateTime.Now.AddHours(-2),DateTime.Now), (heartRateData) => Console.WriteLine(heartRateData.activities_heart_intraday.dataset.Length) );
             
             Console.ReadKey(true);
         }

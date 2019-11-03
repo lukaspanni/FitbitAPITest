@@ -30,16 +30,22 @@ namespace FitbitAPITestConsole
             }
         }
 
-        public static string HeartRatePath(DateTime startDate, DateTime endDate)
+        public static string HeartRatePath(DateTime startDate, DateTime endDate, bool withTime = true)
         {
-            if (endDate < startDate)
+            string returnPath = apiUrl + heartRatePath + startDate.ToString("yyyy-MM-dd") + "/";
+            if (endDate.Date <= startDate.Date)
             {
-                return apiUrl + heartRatePath + startDate.ToString("yyyy-MM-dd") + "/" + startDate.ToString("yyyy-MM-dd") + "/1min.json";
+                returnPath += startDate.ToString("yyyy-MM-dd") + "/1min";
+                if (withTime && endDate.Date == startDate.Date)
+                {
+                    returnPath += "/time/" + startDate.ToString("HH:mm") + "/" + endDate.ToString("HH:mm");
+                }
             }
             else
             {
-                return apiUrl + sleepDataPath + startDate.ToString("yyyy-MM-dd") + "/" + endDate.ToString("yyyy-MM-dd") + "/1min.json";
+                returnPath += endDate.ToString("yyyy-MM-dd") + "/1min";
             }
+            return returnPath + ".json";
         }
     }
 }
