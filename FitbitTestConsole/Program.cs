@@ -12,14 +12,6 @@ namespace FitbitAPITestConsole
 {
     class Program
     {
-        //Move to new class ApiEndpoints
-        private static readonly string userDataPath = "/1/user/-/profile.json";
-        private static readonly string devicesPath = "/1/user/-/devices.json";
-        private static readonly string sleepDataPath = "/1.2/user/-/sleep/date/";
-        private static readonly string heartRatePath = "/1/user/-/activities/heart/date/";
-        private static readonly string apiUrl = "https://api.fitbit.com";
-        //End move
-        
         private static string clientID;
         private static string clientSecret;
         private static string redirectUrl;
@@ -29,6 +21,7 @@ namespace FitbitAPITestConsole
 
         static void Main(string[] args)
         {
+            
             Settings settings = Settings.Default;
             clientID = settings.ClientID;
             clientSecret = settings.ClientSecret;
@@ -43,6 +36,7 @@ namespace FitbitAPITestConsole
                 int bufferSize = 1024;
                 Stream inputStream = Console.OpenStandardInput(bufferSize);
                 Console.SetIn(new StreamReader(inputStream, Console.InputEncoding, false, bufferSize));
+                
                 string urlInput = Console.ReadLine().Trim();
                 if (urlInput.Contains("#access_token="))
                 {
@@ -63,10 +57,10 @@ namespace FitbitAPITestConsole
                 token = settings.Token;
             }
 
-            GetDataTest<FitbitUserWrapper>(apiUrl + userDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
-            GetDataTest<List<FitbitDevice>>(apiUrl + devicesPath, (deviceList) => { Console.WriteLine(deviceList[0].lastSyncTime); });
+            GetDataTest<FitbitUserWrapper>(APIEndpoints.UserDataPath, (userWrapper) => { Console.WriteLine("Data recieved from Fitbit user " + userWrapper.user.fullName + " (" + userWrapper.user.displayName + ")"); });
+            GetDataTest<List<FitbitDevice>>(APIEndpoints.DevicesPath, (deviceList) => { Console.WriteLine(deviceList[0].lastSyncTime); });
             getSleepData();
-            GetDataTest<HeartRateIntradayTimeSeries>(apiUrl + heartRatePath + "today/today/1min.json", (heartRateData) => Console.WriteLine(heartRateData.activities_heart[0].value.restingHeartRate) );
+            GetDataTest<HeartRateIntradayTimeSeries>(APIEndpoints.HeartRatePath(DateTime.Now,DateTime.Now), (heartRateData) => Console.WriteLine(heartRateData.activities_heart[0].value.restingHeartRate) );
             
             Console.ReadKey(true);
         }
@@ -77,7 +71,7 @@ namespace FitbitAPITestConsole
             DateTime startDate = DateTime.Now.AddDays(-30);
             DateTime endDate = DateTime.Now;
 
-            GetDataTest<FitbitSleepWrapper>(apiUrl + sleepDataPath + startDate.ToString("yyyy-MM-dd") + "/" + endDate.ToString("yyyy-MM-dd") + ".json", (sleep) =>
+            GetDataTest<FitbitSleepWrapper>(APIEndpoints.SleepDataPath(DateTime.Now), (sleep) =>
             {
                 Array.Sort(sleep.sleep, Comparer<SleepData>.Create((x, y) => x.dateOfSleep.CompareTo(y.dateOfSleep)));
                 //Use SleepLevelSummary Type to store total summary
