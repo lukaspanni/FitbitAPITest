@@ -30,7 +30,7 @@ namespace FitbitAPITestConsole
             }
         }
 
-        public static string HeartRatePath(DateTime startDate, DateTime endDate, bool withTime = true)
+        public static string HeartRatePath(DateTime startDate, DateTime endDate, bool withTime = false)
         {
             string returnPath = apiUrl + heartRatePath + startDate.ToString("yyyy-MM-dd") + "/";
             if (endDate.Date <= startDate.Date)
