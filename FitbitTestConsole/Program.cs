@@ -13,17 +13,17 @@ namespace FitbitAPITestConsole
     class Program
     {
         private static GetDataHandler dataHandler;
-        static void Main(string[] args)
+        static void Main()
         {
             dataHandler = new GetDataHandler();
 
-            getSleepData();
+            GetSleepData();
 
             Console.ReadKey(true);
         }
 
         //test
-        private static void getSleepData()
+        private static void GetSleepData()
         {
             DateTime startDate = DateTime.Now.AddDays(-30);
             DateTime endDate = DateTime.Now;
@@ -33,11 +33,13 @@ namespace FitbitAPITestConsole
                 Array.Sort(sleep.sleep, Comparer<SleepData>.Create((x, y) => x.dateOfSleep.CompareTo(y.dateOfSleep)));
                 //Use SleepLevelSummary Type to store total summary
                 //Sleep Logs by Date Range returns individual summaries
-                SleepLevelSummary sum = new SleepLevelSummary();
-                sum.deep = new SleepLevelSummary.SleepPhaseData();
-                sum.wake = new SleepLevelSummary.SleepPhaseData();
-                sum.light = new SleepLevelSummary.SleepPhaseData();
-                sum.rem = new SleepLevelSummary.SleepPhaseData();
+                SleepLevelSummary sum = new SleepLevelSummary
+                {
+                    deep = new SleepLevelSummary.SleepPhaseData(),
+                    wake = new SleepLevelSummary.SleepPhaseData(),
+                    light = new SleepLevelSummary.SleepPhaseData(),
+                    rem = new SleepLevelSummary.SleepPhaseData()
+                };
                 StringBuilder sb = new StringBuilder();
                 foreach (SleepData sd in sleep.sleep)
                 {

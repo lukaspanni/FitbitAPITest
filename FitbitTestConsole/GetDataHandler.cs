@@ -59,20 +59,22 @@ namespace FitbitAPITestConsole
 
         public virtual async Task<T> GetData<T>(string url, Action<T> action = null)
         {
-            HttpClient c = new HttpClient();
-            HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
-            httpRequest.Headers.Add("Authorization", "Bearer " + token);
-            using (HttpResponseMessage res = await c.SendAsync(httpRequest))
+            using (HttpClient c = new HttpClient())
             {
-                if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                HttpRequestMessage httpRequest = new HttpRequestMessage(HttpMethod.Get, url);
+                httpRequest.Headers.Add("Authorization", "Bearer " + token);
+                using (HttpResponseMessage res = await c.SendAsync(httpRequest))
                 {
-                    string resText = await res.Content.ReadAsStringAsync();
-                    T returnObject = JsonConvert.DeserializeObject<T>(resText);
-                    action?.Invoke(returnObject);
-                    return returnObject;
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string resText = await res.Content.ReadAsStringAsync();
+                        T returnObject = JsonConvert.DeserializeObject<T>(resText);
+                        action?.Invoke(returnObject);
+                        return returnObject;
+                    }
                 }
-            }
-            return default;
+                return default;
+            } 
         }
 
     }
