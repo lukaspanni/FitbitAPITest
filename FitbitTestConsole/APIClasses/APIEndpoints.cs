@@ -35,6 +35,7 @@ namespace FitbitAPITestConsole
             string returnPath = apiUrl + heartRatePath + startDate.ToString("yyyy-MM-dd") + "/";
             if (endDate.Date <= startDate.Date)
             {
+                //endDate before or equal to startDate
                 returnPath += startDate.ToString("yyyy-MM-dd") + "/1min";
                 if (withTime && endDate.Date == startDate.Date)
                 {

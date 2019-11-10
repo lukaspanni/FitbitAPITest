@@ -8,10 +8,16 @@ namespace FitbitAPITestConsole
 {
     class GetHeartRateDataHandler : GetDataHandler
     {
-        //workaround! Select correct Type
-        public async Task<HeartRateData> GetHeartRateDataAsync(DateTime startDate, DateTime endDate, bool withTime = true, Action<HeartRateData> action = null)
+        public GetHeartRateDataHandler() : base()
         {
-            if (withTime)
+            
+        }
+
+        //workaround! Select correct Type
+        public async Task<HeartRateData> GetHeartRateData(DateTime startDate, DateTime endDate, bool withTime = false, Action<HeartRateData> action = null)
+        {
+            //dates have to be same day for Time!
+            if (withTime && endDate.Date == startDate.Date)
             {
                 return await base.GetData<HeartRateIntradayTimeSeriesTime>(APIEndpoints.HeartRatePath(startDate, endDate, withTime), action);
             }
