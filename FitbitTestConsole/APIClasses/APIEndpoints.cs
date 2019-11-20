@@ -13,6 +13,7 @@ namespace FitbitAPITestConsole
         private static readonly string devicesPath = "/1/user/-/devices.json";
         private static readonly string sleepDataPath = "/1.2/user/-/sleep/date/";
         private static readonly string heartRatePath = "/1/user/-/activities/heart/date/";
+        private static readonly string activitiyDataPath = "/1/user/-/activities/date/";
 
         public static string UserDataPath() { return apiUrl + userDataPath; }
 
@@ -47,6 +48,11 @@ namespace FitbitAPITestConsole
                 returnPath += endDate.ToString("yyyy-MM-dd") + "/1min";
             }
             return returnPath + ".json";
+        }
+
+        public static string ActivityDataPath(DateTime date)
+        {
+            return apiUrl + activitiyDataPath + date.ToString("yyyy-MM-dd") + ".json";
         }
     }
 }

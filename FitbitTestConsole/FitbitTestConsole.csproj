@@ -78,7 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIClasses\Activity.cs" />
     <Compile Include="APIClasses\APIEndpoints.cs" />
+    <Compile Include="APIClasses\FitbitActivityData.cs" />
     <Compile Include="APIClasses\FitbitBadge.cs" />
     <Compile Include="APIClasses\FitbitDevice.cs" />
     <Compile Include="APIClasses\FitbitSleepWrapper.cs" />
