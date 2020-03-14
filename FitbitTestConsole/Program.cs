@@ -25,7 +25,7 @@ namespace FitbitAPITestConsole
         private static async void GetHeartRateDataTest()
         {
             GetHeartRateDataHandler heartRateDataHandler = new GetHeartRateDataHandler();
-            HeartRateData data = await heartRateDataHandler.GetHeartRateData(DateTime.Now.AddHours(-10), DateTime.Now, false);
+            HeartRateData data = await heartRateDataHandler.GetHeartRateData(DateTime.Now, DateTime.Now, false);
             Console.WriteLine("\n\n");
             if (data.activities_heart_intraday != null)
             {
@@ -38,9 +38,17 @@ namespace FitbitAPITestConsole
             if (data is HeartRateIntradayTimeSeries)
             {
                 HeartRateIntradayTimeSeries timeSeriesData = data as HeartRateIntradayTimeSeries;
+                foreach (HeartActivities item in timeSeriesData.activities_heart)
+                {
+                    Console.WriteLine("{0,-10}{1,4}bpm", item.dateTime, item.value.restingHeartRate);
+                }
             }else if(data is HeartRateIntradayTimeSeriesTime)
             {
                 HeartRateIntradayTimeSeriesTime timeSeriesTimeData = data as HeartRateIntradayTimeSeriesTime;
+				foreach (HeartActivitiesTime item in timeSeriesTimeData.activities_heart)
+                {
+                    Console.WriteLine("{0,-10}{1,4}bpm", item.dateTime, item.value);
+                }
             }
         }
 
